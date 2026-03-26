@@ -1,0 +1,142 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans JP",
+        "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", Arial, sans-serif;
+    color: #111;
+    background: #ffffff;
+}
+.header {
+    height: 64px;
+    background: #000;
+}
+
+.header__inner {
+    max-width: 1540px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.brand__logo {
+    height: 22px;
+    width: auto;
+    display: block;
+}
+
+.header__search {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.header-search__input {
+    width: 100%;
+    max-width: 500px;
+    height: 36px;
+    border: none;
+    border-radius: 4px;
+    padding: 0 14px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-shrink: 0;
+}
+
+.header-nav__form {
+    margin: 0;
+}
+
+.header-nav__button {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.header-nav__link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.header-nav__sell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 78px;
+    height: 32px;
+    padding: 0 16px;
+    border-radius: 4px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.header-nav__link:hover,
+.header-nav__button:hover {
+    opacity: 0.8;
+}
+
+.header-nav__sell:hover {
+    opacity: 0.9;
+}
+
+main {
+    min-height: calc(100vh - 64px);
+}
+
+@media screen and (max-width: 768px) {
+    .header__inner {
+        gap: 16px;
+        padding: 0 12px;
+    }
+
+    .header-search__input {
+        max-width: 260px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .header-nav {
+        gap: 12px;
+    }
+
+    .header-nav__link,
+    .header-nav__button,
+    .header-nav__sell {
+        font-size: 12px;
+    }
+
+    .header-nav__sell {
+        min-width: 64px;
+        height: 28px;
+        padding: 0 12px;
+    }
+}
