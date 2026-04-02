@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+use Stripe\Webhook;
 
 class PurchaseController extends Controller
 {
@@ -113,35 +116,106 @@ class PurchaseController extends Controller
         $shippingAddress  = $sessionAddress['address'] ?? ($profile->address ?? '');
         $shippingBuilding = $sessionAddress['building'] ?? ($profile->building ?? '');
 
-        DB::transaction(function () use (
-            $item_id,
-            $user,
-            $request,
-            $shippingPostCode,
-            $shippingAddress,
-            $shippingBuilding,
-        ) {
-            DB::table('orders')->insert([
-                'item_id'            => $item_id,
-                'buyer_id'           => $user->id,
-                'payment_method'     => $request->payment_method,
+        $stripePaymentMethod = $request->payment_method == 1 ? 'konbini' : 'card';
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $checkoutSession = Session::create([
+            'mode' => 'payment',
+            'payment_method_types' => [$stripePaymentMethod],
+            'line_items' => [[
+                'quantity' => 1,
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'unit_amount' => (int)$item->price,
+                    'product_data' => [
+                        'name' => $item->name,
+                        'images' => [asset($item->image)],
+                    ],
+                ],
+            ]],
+            'success_url' => route('purchase.success', ['item_id' => $item_id]) . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('purchase.cancel', ['item_id' => $item_id]),
+            'metadata' => [
+                'item_id' => $item_id,
+                'buyer_id' => $user->id,
+                'payment_method' => $request->payment_method,
                 'shipping_post_code' => $shippingPostCode,
-                'shipping_address'   => $shippingAddress,
-                'shipping_building'  => $shippingBuilding,
-                'created_at'         => now(),
-                'updated_at'         => now(),
-            ]);
+                'shipping_address' => $shippingAddress,
+                'shipping_building' => $shippingBuilding,
+            ],
+        ]);
 
-            DB::table('items')
-                ->where('id', $item_id)
-                ->update([
-                    'status' => 3,
-                    'updated_at' => now(),
-                ]);
-        });
+        return redirect($checkoutSession->url);
+    }
 
-        session()->forget('purchase_address_' . $item_id);
-
+    public function success($item_id)
+    {
         return redirect()->route('profile.show', ['tab' => 'buy']);
+    }
+
+    public function cancel($item_id)
+    {
+        return redirect()->route('purchase.show', ['item_id' => $item_id]);
+    }
+
+    /**
+     * Stripe Webhook
+     * checkout.session.completed 受信時に orders 作成 + items.status更新
+     */
+    public function webhook(Request $request)
+    {
+        $payload = $request->getContent();
+        $sigHeader = $request->server('HTTP_STRIPE_SIGNATURE');
+        $endpointSecret = config('services.stripe.webhook_secret');
+
+        try {
+            $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
+        } catch (UnexpectedValueException $e) {
+            return response('Invalid payload', 400);
+        } catch (SignatureVerificationException $e) {
+            return response('Invalid signature', 400);
+        }
+
+        if ($event->type === 'checkout.session.completed') {
+            $session = $event->data->object;
+            $metadata = $session->metadata ?? null;
+
+            if (!$metadata) {
+                return response('No metadata', 400);
+            }
+
+            $itemId = (int) $metadata->item_id;
+            $buyerId = (int) $metadata->buyer_id;
+
+            // すでに注文済みなら何もしない
+            $alreadyOrdered = DB::table('orders')
+                ->where('item_id', $itemId)
+                ->exists();
+
+            if (!$alreadyOrdered) {
+                DB::transaction(function () use ($metadata, $itemId, $buyerId) {
+                    DB::table('orders')->insert([
+                        'item_id' => $itemId,
+                        'buyer_id' => $buyerId,
+                        'payment_method' => (int) $metadata->payment_method,
+                        'shipping_post_code' => $metadata->shipping_post_code,
+                        'shipping_address' => $metadata->shipping_address,
+                        'shipping_building' => $metadata->shipping_building,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+
+                    DB::table('items')
+                        ->where('id', $itemId)
+                        ->update([
+                            'status' => 3,
+                            'updated_at' => now(),
+                        ]);
+                });
+            }
+        }
+
+        return response('Webhook handled', 200);
     }
 }

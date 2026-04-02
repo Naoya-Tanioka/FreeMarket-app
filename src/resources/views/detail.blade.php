@@ -128,6 +128,8 @@
                 @endauth
 
                 @guest
+                    <textarea class="detail-page__textarea" onclick="window.location.href='/login'"readonly></textarea>
+
                     <a href="/login" class="detail-page__comment-submit detail-page__comment-submit--link">
                         コメントを送信する
                     </a>

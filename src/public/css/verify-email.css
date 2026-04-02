@@ -1,0 +1,54 @@
+.verify-page {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 120px;
+    background: #f5f5f5;
+}
+
+.verify-page__inner {
+    text-align: center;
+}
+
+.verify-page__text {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    color: #111;
+}
+
+.verify-page__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 56px;
+    background: #d9d9d9;
+    border: 1px solid #666;
+    border-radius: 8px;
+    color: #111;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+.verify-page__resend-form {
+    margin-top: 8px;
+}
+
+.verify-page__resend-button {
+    border: none;
+    background: transparent;
+    color: #3b82f6;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.verify-page__message {
+    margin-top: 16px;
+    color: #ff5a5a;
+    font-size: 14px;
+}

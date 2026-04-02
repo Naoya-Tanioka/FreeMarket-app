@@ -7,7 +7,8 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,7 +47,14 @@ Route::middleware('auth')->group(function (){
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])->name('purchase.address.edit');
     // 住所変更ページ
     Route::put('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
-    // 購入確定
+    // Stripe Checkout Session 作成
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+    // 決済完了後の遷移先
+    Route::get('/purchase/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
+    // キャンセル時の戻り先
+    Route::get('/purchase/cancel/{item_id}', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
 });
+
+// Webhook は auth なし
+Route::post('/stripe/webhook', [PurchaseController::class, 'webhook'])->name('stripe.webhook');
 
