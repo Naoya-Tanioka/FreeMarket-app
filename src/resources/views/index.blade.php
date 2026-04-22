@@ -35,7 +35,7 @@
     @empty
       <p class="empty">
         @if($tab === 'mylist' && !auth()->check())
-          マイリストはログイン後に表示できます。
+
         @else
           商品がありません。
         @endif

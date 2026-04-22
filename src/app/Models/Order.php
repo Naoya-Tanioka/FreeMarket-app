@@ -19,4 +19,15 @@ class Order extends Model
         'ship_building',
         'status',
     ];
+    use HasFactory;
+
+        public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
+        public function buyer()
+    {
+        return $this->belongsTo(User::class, 'buyer_id');
+    }
 }

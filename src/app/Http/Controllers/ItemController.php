@@ -30,7 +30,7 @@ class ItemController extends Controller
             }
         // Sold判定（ordersが存在するか）
         $query->withExists('order');
- // マイリスト
+        // マイリスト
         if ($tab === 'mylist') {
             // 未認証は「何も表示されない」
             if (!Auth::check()) {

@@ -23,10 +23,28 @@ use Illuminate\Http\Request;
 //商品一覧ページへの遷移
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 //商品詳細ページへの遷移
-Route::get('/item/{item_id}', [ItemController::class, 'detail'])
-    ->name('items.detail');
+Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('items.detail');
+//メール認証前
+Route::middleware('auth')->group(function(){
+    //メール認証誘導画面への遷移
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
+    // 認証メール再送
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('status', 'verification-link-sent');
+    })->middleware('throttle:6,1')->name('verification.send');
+    //メール内リンクからのアクセス
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect()->route('profile.edit');
+    })->middleware(['signed'])->name('verification.verify');
+});
 //ログイン後のみ利用可能
-Route::middleware('auth')->group(function (){
+Route::middleware(['auth','verified'])->group(function (){
     //マイページへの遷移
     Route::get('/mypage',[ProfileController::class, 'show'])->name('profile.show');
     //プロフィール設定画面

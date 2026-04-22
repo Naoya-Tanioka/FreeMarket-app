@@ -25,7 +25,7 @@ class CreateItemsTable extends Migration
             $table->unsignedInteger('price');
             // 出品状態: 例 1=出品中,2=取引中,3=売却済
             $table->unsignedTinyInteger('status')->default(1);
-            //未完了部分
+            
             $table->index(['user_id','status']);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

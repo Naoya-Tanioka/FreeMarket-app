@@ -54,7 +54,7 @@ class FortifyServiceProvider extends ServiceProvider
             return new class implements RegisterResponse {
                 public function toResponse($request)
                 {
-                    return redirect()->route('profile.edit');
+                    return redirect()->route('verification.notice');
                 }
             };
         });

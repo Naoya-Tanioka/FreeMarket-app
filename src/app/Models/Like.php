@@ -13,4 +13,6 @@ class Like extends Model
         'user_id',
         'item_id',
     ];
+
+    use HasFactory;
 }
