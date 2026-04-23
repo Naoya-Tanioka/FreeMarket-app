@@ -2,8 +2,8 @@
 
 ## 環境構築
 **Dockerビルド**
-1. `git clone https://github.com/Naoya-Tanioka/FreeMarket-app.git
-2. `cd FreeMarket-app
+1. `git clone https://github.com/Naoya-Tanioka/FreeMarket-app.git`
+2. `cd FreeMarket-app`
 3. DockerDesktopアプリを立ち上げる
 4. `docker-compose up -d --build`
 
