@@ -13,6 +13,7 @@ class CommentController extends Controller
             'comment' => 'required|string|max:255',
         ], [
             'comment.required' => 'コメントを入力してください',
+            'comment.max' => 'コメントは255文字以内にしてください'
         ]);
 
         DB::table('comments')->insert([

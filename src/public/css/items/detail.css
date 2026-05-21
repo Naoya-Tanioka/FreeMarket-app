@@ -1,25 +1,27 @@
 .detail-page {
-    padding: 48px 60px 80px;
+    padding: 48px 0 80px;
     background: #f5f5f5;
 }
 
 .detail-page__inner {
-    max-width: 1200px;
+    width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
+    grid-template-columns: 560px 560px;
+    column-gap: 80px;
+    align-items: start;
 }
 
 .detail-page__image {
+    width: 560px;
+    height: 560px;
     background: #ddd;
-    aspect-ratio: 1 / 1;
     overflow: hidden;
 }
 
 .detail-page__image img {
-    width: 100%;
-    height: 100%;
+    width: 560px;
+    height: 560px;
     object-fit: cover;
     display: block;
 }
@@ -75,7 +77,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 560px;
     height: 48px;
     background: #ff5a5a;
     color: #fff;
@@ -95,8 +97,10 @@
 }
 
 .detail-page__description {
+    width: 560px;
     white-space: pre-wrap;
     line-height: 1.8;
+    word-break: break-word;
 }
 
 .detail-page__info-row {
@@ -107,7 +111,8 @@
 }
 
 .detail-page__info-label {
-    min-width: 100px;
+    width: 100px;
+    flex-shrink: 0;
     font-weight: 700;
 }
 
@@ -141,11 +146,12 @@
     border-radius: 50%;
     background: #d9d9d9;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .detail-page__comment-image img {
-    width: 100%;
-    height: 100%;
+    width: 48px;
+    height: 48px;
     object-fit: cover;
 }
 
@@ -155,13 +161,16 @@
 }
 
 .detail-page__comment-body {
+    width: 560px;
     background: #e5e5e5;
     padding: 16px;
     border-radius: 4px;
+    box-sizing: border-box;
+    word-break: break-word;
 }
 
 .detail-page__textarea {
-    width: 100%;
+    width: 560px;
     min-height: 180px;
     border: 1px solid #666;
     resize: vertical;
@@ -174,7 +183,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 560px;
     height: 48px;
     background: #ff5a5a;
     color: #fff;

@@ -165,6 +165,9 @@ class PurchaseController extends Controller
      */
     public function webhook(Request $request)
     {
+        //後で消すーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー//
+        \Log::info('webhook reached');
+        //ここまで
         $payload = $request->getContent();
         $sigHeader = $request->server('HTTP_STRIPE_SIGNATURE');
         $endpointSecret = config('services.stripe.webhook_secret');

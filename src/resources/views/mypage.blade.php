@@ -45,6 +45,9 @@
             <a href="{{ route('items.detail', ['item_id' => $item->id]) }}" class="mypage__item-card">
                 <div class="mypage__item-image">
                     <img src="{{ asset($item->image) }}" alt="{{ $item->name }}">
+                    @if((int)$item->status === 3)
+                        <span class="sold">Sold</span>
+                    @endif
                 </div>
                 <p class="mypage__item-name">{{ $item->name }}</p>
             </a>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/verify-email.css') }}">
@@ -12,9 +12,9 @@
             メール認証を完了してください。
         </p>
 
-        <a href="{{ config('app.mail_service_url', '#') }}" class="verify-page__button">
-            認証はこちらから
-        </a>
+    <a href="http://localhost:8025" class="verify-page__button">
+        認証はこちらから
+    </a>
 
         <form action="{{ route('verification.send') }}" method="post" class="verify-page__resend-form">
             @csrf

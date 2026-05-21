@@ -1,29 +1,24 @@
 .purchase-page {
-    padding: 48px 40px 80px;
-    background: #f5f5f5;
     min-height: calc(100vh - 64px);
+    padding: 48px 0 80px;
+    background: #f5f5f5;
     box-sizing: border-box;
 }
 
-
 .purchase-page form {
-    display: block;
     width: 100%;
 }
 
 .purchase-page__inner {
-    max-width: 1200px;
+    width: 1280px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 40px;
+    grid-template-columns: 820px 360px;
+    column-gap: 80px;
     align-items: start;
 }
 
-.purchase-page__left {
-    min-width: 0;
-}
-
+.purchase-page__left,
 .purchase-page__right {
     min-width: 0;
 }
@@ -37,35 +32,37 @@
 }
 
 .purchase-page__image {
-    width: 180px;
-    aspect-ratio: 1 / 1;
+    width: 200px;
+    height: 200px;
     background: #ddd;
     overflow: hidden;
     flex-shrink: 0;
 }
 
 .purchase-page__image img {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     display: block;
 }
 
 .purchase-page__item-info {
+    width: 596px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .purchase-page__name {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
     margin: 0 0 12px;
     color: #111;
+    word-break: break-word;
 }
 
 .purchase-page__price {
-    font-size: 30px;
+    font-size: 34px;
     margin: 0;
     color: #111;
 }
@@ -85,7 +82,6 @@
 
 .purchase-page__select {
     width: 265px;
-    max-width: 100%;
     height: 36px;
     border: 1px solid #999;
     border-radius: 4px;
@@ -97,9 +93,11 @@
 }
 
 .purchase-page__address-header {
+    width: 820px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
     margin-bottom: 16px;
 }
 
@@ -107,6 +105,7 @@
     color: #3b82f6;
     text-decoration: none;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .purchase-page__change-link:hover {
@@ -118,12 +117,14 @@
     padding-left: 24px;
     font-size: 16px;
     color: #111;
+    word-break: break-word;
 }
 
 .purchase-page__summary {
-    width: 100%;
+    width: 360px;
     border-collapse: collapse;
     background: #fff;
+    table-layout: fixed;
 }
 
 .purchase-page__summary th,
@@ -135,9 +136,9 @@
     color: #111;
     border-top: 1px solid #999;
     border-bottom: 1px solid #999;
+    word-break: break-word;
 }
 
-/* 左右の外枠は残して、中央の縦線だけ消す */
 .purchase-page__summary th {
     width: 45%;
     border-left: 1px solid #999;
@@ -150,7 +151,7 @@
 }
 
 .purchase-page__button {
-    width: 100%;
+    width: 360px;
     height: 48px;
     border: none;
     border-radius: 4px;
@@ -176,50 +177,4 @@
     margin-top: 8px;
     margin-bottom: 0;
     line-height: 1.4;
-}
-
-@media screen and (max-width: 768px) {
-    .purchase-page {
-        padding: 32px 16px 60px;
-    }
-
-    .purchase-page__inner {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    .purchase-page__item {
-        gap: 16px;
-        padding-bottom: 24px;
-        margin-bottom: 24px;
-    }
-
-    .purchase-page__image {
-        width: 120px;
-    }
-
-    .purchase-page__name {
-        font-size: 22px;
-    }
-
-    .purchase-page__price {
-        font-size: 24px;
-    }
-
-    .purchase-page__label {
-        font-size: 16px;
-    }
-
-    .purchase-page__address p {
-        padding-left: 12px;
-        font-size: 14px;
-    }
-
-    .purchase-page__right {
-        display: none;
-    }
-
-    .purchase-page__right--sp {
-        display: block;
-    }
 }

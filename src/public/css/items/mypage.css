@@ -1,11 +1,11 @@
 .mypage {
-    min-height: calc(100vh - 64px);
-    background: #f5f5f5;
+    width: 1400px;
+    margin: 0 auto;
+    padding: 32px 0 60px;
 }
 
 .mypage__header {
     padding: 40px 60px 24px;
-    background: #f5f5f5;
 }
 
 .mypage__profile {
@@ -82,7 +82,7 @@
     margin: 0 auto;
     padding: 32px 60px 60px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 256px);
     gap: 40px 28px;
     box-sizing: border-box;
 }
@@ -93,8 +93,9 @@
 }
 
 .mypage__item-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    position: relative;
+    width: 256px;
+    height: 256px;
     background: #ddd;
     overflow: hidden;
 }
@@ -104,6 +105,18 @@
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.sold {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(255, 0, 0, 0.8);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
 }
 
 .mypage__item-name {

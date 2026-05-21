@@ -19,8 +19,8 @@ class ExhibitionRequest extends FormRequest
             'categories.*' => 'exists:categories,id',
             'condition' => 'required|integer',
             'name' => 'required|string|max:100',
-            'brand_name' => 'nullable|string|max:100',
-            'description' => 'required|string',
+            'brand_name' => 'nullable|string',
+            'description' => 'required|string|max:255',
             'price' => 'required|integer|min:1',
         ];
     }
@@ -35,6 +35,7 @@ class ExhibitionRequest extends FormRequest
             'condition.required' => '商品の状態を選択してください',
             'name.required' => '商品名を入力してください',
             'description.required' => '商品の説明を入力してください',
+            'description.max' => '商品の説明は255文字以内で入力して下さい',
             'price.required' => '販売価格を入力してください',
             'price.integer' => '販売価格は数字で入力してください',
             'price.min' => '販売価格は1円以上で入力してください',

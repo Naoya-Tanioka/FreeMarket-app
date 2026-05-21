@@ -45,7 +45,6 @@ class ProfileController extends Controller
         return view('profile', compact('user','profile'));
     }
 
-    // update() は後でここにまとめる（今ある update をそのまま移す）
     public function update(ProfileRequest $request)
 {
     $user = auth()->user();
