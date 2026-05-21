@@ -115,4 +115,4 @@ MySQL8.0.26
 
 ## URL
 ・開発環境：http://localhost/
-・phpMyAdmin:http://localhost/8080
+・phpMyAdmin:http://localhost:8080
